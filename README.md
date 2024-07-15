@@ -1,6 +1,6 @@
 # Arazzo Runner
 
-Library to run Arazzo specs. Library will consume your spec and a set of inputs to execute the associated workflows. Workflows will be executed serially, in order.
+Library to run [Arazzo](https://www.openapis.org/arazzo) specs. Library will consume your spec and a set of inputs to execute the associated workflows. Workflows will be executed serially, in order.
 
 ## Installation
 
@@ -23,6 +23,14 @@ Add your Arazzo test specs under `/tests` and modify [test.ts](./tests/test.ts) 
 
 ```bash
 npm run test
+```
+
+Terminal Output
+
+```bash
+Condition Failed: 404 == 200. Original expression: $statusCode == 200
+Workflow ID createTodo result:  {"status":"failure","reason":"Step getTodo failed"}
+Spec run result failure
 ```
 
 ## Usage
@@ -50,7 +58,7 @@ import { runFromFile } from '@arazzo/runner'
 runFromFile('./examples/status.arz.json', { inputs }).then(console.log)
 ```
 
-### Run workflow from config
+### Run workflow from code
 
 ```js
 import { run } from '@arazzo/runner'
@@ -132,6 +140,7 @@ const inputs = {
 }
 
 run(arazzoSpec, { inputs }).then(console.log)
+// {"status":"failure","reason":"Step getTodo failed"}
 ```
 
 ## Limitation
