@@ -1,6 +1,12 @@
 import { runFromFile } from '../src/index'
-import { EventEmitter } from 'node:events'
 
-const ee = new EventEmitter()
-runFromFile('./tests/basic.yml').then(({ result }) => console.log(result.tests[0].steps))
-runFromFile('./tests/multipart.yml').then(({ result }) => console.log(result.tests[0].steps))
+const inputs = {
+  createTodo: {
+    userId: 1,
+    title: 'Test todo',
+    completed: false,
+  },
+}
+runFromFile('./tests/basic.arz.json', { inputs }).then(({ status }) =>
+  console.log(status)
+)

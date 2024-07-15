@@ -1,0 +1,86 @@
+{
+  "arazzo": "1.0.0",
+  "info": {
+    "title": "Simple Arazzo test",
+    "version": "1.0.0",
+    "description": "This is a simple test for Arazzo"
+  },
+  "sourceDescriptions": [
+    {
+      "name": "Todo list API",
+      "url": "https://white-buzzard-main-215278f.d2.zuplo.dev/openapi",
+      "type": "openapi"
+    }
+  ],
+  "workflows": [
+    {
+      "workflowId": "createTodo",
+      "summary": "Create a new todo",
+      "description": "Create a new todo item and fetch it",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID of the user"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the todo"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "If the Todo task is completed"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "value": "Bearer zpka_0376e157a4674e718aecc31b9b47e59b_1e000ee9"
+        }
+      ],
+      "steps": [
+        {
+          "stepId": "createTodo",
+          "description": "Create a new todo",
+          "operationId": "f9e30d74-56ca-4f1e-bcb3-75fe305ea5e4",
+          "requestBody": {
+            "contentType": "application/json",
+            "payload": {
+              "userId": "$inputs.userId",
+              "title": "$inputs.title",
+              "completed": "$inputs.completed"
+            }
+          },
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 201"
+            }
+          ],
+          "outputs": {
+            "todoId": "$response.body.id"
+          }
+        },
+        {
+          "stepId": "getTodo",
+          "description": "Get the created todo",
+          "operationId": "7c8d2194-7b6f-49cd-b8ae-307eaecb017a",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "value": "$steps.createTodo.outputs.todoId"
+            }
+          ],
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
