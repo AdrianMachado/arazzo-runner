@@ -33,14 +33,21 @@ YAML
 
 ```js
 import { runFromFile } from '@arazzo/runner'
-runFromFile('./examples/status.arz.yml').then(console.log)
+const inputs = {
+  createTodo: {
+    userId: 1,
+    title: 'Test todo',
+    completed: false,
+  },
+}
+runFromFile('./examples/status.arz.yml', { inputs }).then(console.log)
 ```
 
 JSON
 
 ```js
 import { runFromFile } from '@arazzo/runner'
-runFromFile('./examples/status.arz.json').then(console.log)
+runFromFile('./examples/status.arz.json', { inputs }).then(console.log)
 ```
 
 ### Run workflow from config
@@ -116,7 +123,15 @@ const arazzoSpec = {
   ],
 }
 
-run(arazzoSpec).then(console.log)
+const inputs = {
+  createTodo: {
+    userId: 1,
+    title: 'Test todo',
+    completed: false,
+  },
+}
+
+run(arazzoSpec, { inputs }).then(console.log)
 ```
 
 ## Limitation
