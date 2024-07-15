@@ -8,5 +8,5 @@ const inputs = {
   },
 }
 runFromFile('./tests/basic.arz.json', { inputs }).then(({ status }) =>
-  console.log(status)
+  console.log('Spec run result', status)
 )

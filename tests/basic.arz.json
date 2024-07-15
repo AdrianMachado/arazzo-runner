@@ -14,7 +14,7 @@
   ],
   "workflows": [
     {
-      "workflowId": "createTodo",
+      "workflowId": "createAndFetchTodo",
       "summary": "Create a new todo",
       "description": "Create a new todo item and fetch it",
       "inputs": {

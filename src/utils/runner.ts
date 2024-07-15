@@ -15,7 +15,7 @@ import { evaluateWorkflowStep } from './step'
  *
  * @param workflow The Arazzo workflow object
  * @param context Evaluation context, assumed to contain the workflow's inputs
- * under $inputs and parameters under _workflowParameters
+ * under context.inputs and parameters under context._workflowParameters
  * @returns
  */
 export const evaluateWorkflow = async (

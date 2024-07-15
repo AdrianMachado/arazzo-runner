@@ -145,6 +145,8 @@ export interface EvaluationContext {
   steps?: Record<string, any> // Step outputs
   // $components?: Record<string, any>; NOT SUPPORTED
   // $sourceDescriptions: SourceDescriptionObject[]; NOT SUPPORTED
+  // NOTE: Prefixed with _ to avoid people accidentally writing expressions to
+  // access this properties
   _workflowParameters: (ParameterObject | ReusableObject)[] | undefined
 }
 
