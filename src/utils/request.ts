@@ -35,6 +35,7 @@ export const executeRequest = async (
   if (workflowParameterResult.status === 'error') {
     return workflowParameterResult
   }
+
   const operationParameters = {
     path: {
       ...workflowParameterResult.parsedParameters.path,
@@ -57,6 +58,7 @@ export const executeRequest = async (
       ...parametersResult.parsedParameters.body,
     },
   }
+
   const requestBodyResult = getOperationRequestBody(
     stepId,
     context,
@@ -87,17 +89,21 @@ export const executeRequest = async (
   if (requestBodyResult.operationRequestBody && requestBody) {
     operationParameters.header['Content-Type'] = requestBody.contentType
   }
+  const requestUrl = `${parentSpec.servers[0].url}${path}${search.toString()}`
   try {
-    const response = await fetch(
-      `${parentSpec.servers[0].url}${path}${search.toString()}`,
-      {
-        method: method.toUpperCase(),
-        headers: operationParameters.header,
-        body: requestBodyResult.operationRequestBody
-          ? JSON.stringify(requestBodyResult.operationRequestBody)
-          : undefined,
-      }
-    )
+    const response = await fetch(requestUrl, {
+      method: method.toUpperCase(),
+      headers: operationParameters.header,
+      body: requestBodyResult.operationRequestBody
+        ? JSON.stringify(requestBodyResult.operationRequestBody)
+        : undefined,
+    })
+    const responseText = await response.clone().text()
+    if (!response.ok) {
+      console.error(
+        `Error in request to ${requestUrl}: ${response.status} - ${response.statusText} - ${responseText}`
+      )
+    }
     return { status: 'success', response }
   } catch (e) {
     return {

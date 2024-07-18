@@ -322,7 +322,12 @@ const getContextFromResponse = async (
   newEvalContext.url = response.url
   newEvalContext.statusCode = response.status
   const headers = response.headers
-  const responseBody = await response.text()
+  let responseBody = await response.clone().text()
+  try {
+    responseBody = JSON.parse(responseBody)
+  } catch (e) {
+    // Do nothing
+  }
   let headersParsed: Record<string, string> = {}
   headers.forEach((value, key) => {
     headersParsed[key] = value

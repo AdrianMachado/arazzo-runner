@@ -69,7 +69,7 @@
           "operationId": "7c8d2194-7b6f-49cd-b8ae-307eaecb017a",
           "parameters": [
             {
-              "name": "id",
+              "name": "todoId",
               "in": "path",
               "value": "$steps.createTodo.outputs.todoId"
             }

@@ -1,7 +1,7 @@
 import { runFromFile } from '../src/index'
 
 const inputs = {
-  createTodo: {
+  createAndFetchTodo: {
     userId: 1,
     title: 'Test todo',
     completed: false,
